@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DragAndDrop : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     Camera mainCamera;
     Vector3 offset;
@@ -41,9 +41,18 @@ private void Awake()
                     offset = interactingObject.transform.position - mousePosition;
                     estadoActual = Estado.dragging;
                 } 
-                else if (hit.collider.gameObject.CompareTag("Clickable"))
+                else if (hit.collider.gameObject.CompareTag("Accept Button"))
                 {
-                    Debug.Log("Click sobre " + gameObject.name);
+                    FindAnyObjectByType<AceptarCandidato>().MostrarFinal();
+                }
+                else if (hit.collider.gameObject.CompareTag("Forms Option Button"))
+                {
+                    TMPro.TMP_Text optionButton = hit.collider.gameObject.GetComponent<TMPro.TMP_Text>();
+                    if (optionButton != null)
+                    {
+                        FindAnyObjectByType<FormsController>().Continuar(optionButton.text);
+                    }
+                    
                 }
             }
         }

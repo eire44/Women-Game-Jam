@@ -14,23 +14,29 @@ public class FormsController : MonoBehaviour
     public GameObject formulario;
     public GameObject candidatoFinal;
     public TMP_Text descripcionCandidato;
+    string[] respuestasElegidas;
 
     private void Start()
     {
         SiguientePregunta();
     }
 
-    public void Continuar()
+    public void Continuar(string opcionElegida)
     {
+        respuestasElegidas[preguntasIndex] = opcionElegida;
         preguntasIndex++;
         if(preguntasIndex < preguntasForms.Count)
         {
-            SiguientePregunta();
+            //SiguientePregunta();
         }
         else
         {
             candidatoFinal.SetActive(true);
             formulario.SetActive(false);
+            descripcionCandidato.text = "Aquí tienes a tu pareja ideal, lee atentamente su perfil y acéptalo como el amor de tu vida!\n" +
+                $"Ama a los {respuestasElegidas[0]}\n" +
+                $"Prefiere los {respuestasElegidas[1]}\n" +
+                $"Quisiera vacacionar siempre en {respuestasElegidas[2]}\n";
         }
         
     }

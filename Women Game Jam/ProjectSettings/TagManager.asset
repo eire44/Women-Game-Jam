@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Draggable
   - Clickable
+  - Accept Button
+  - Forms Option Button
   layers:
   - Default
   - TransparentFX

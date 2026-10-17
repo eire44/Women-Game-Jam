@@ -1,16 +1,58 @@
+using TMPro;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.UI;
 
 public class AceptarCandidato : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] Image blackScreen;
+    [SerializeField] TMP_Text textoFinal;
+
+    [SerializeField] float fadeDuration = 1f;
+    [SerializeField] float esperarMenu = 5f;
+
+    public void MostrarFinal()
     {
-        
+        StartCoroutine(Fade(0f, 1f));
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator Fade(float alphaInicial, float alphaFinal)
     {
+        float tiempo = 0f;
+
+        Color screenColor = blackScreen.color;
+        screenColor.a = alphaInicial;
+        blackScreen.color = screenColor;
+
+        Color textColor = textoFinal.color;
+        textColor.a = alphaInicial;
+        textoFinal.color = textColor;
+
+        while (tiempo < fadeDuration)
+        {
+            tiempo += Time.unscaledDeltaTime;
+
+            float alpha = Mathf.Lerp(
+                alphaInicial,
+                alphaFinal,
+                tiempo / fadeDuration
+            );
+
+            screenColor.a = alpha;
+            textColor.a = alpha;
+            blackScreen.color = screenColor;
+            textoFinal.color = textColor;
+
+            yield return null;
+        }
+
+        screenColor.a = alphaFinal;
+        textColor.a = alphaFinal;
+        blackScreen.color = screenColor;
+        textoFinal.color = textColor;
+
+        yield return new WaitForSeconds(5f);
         
+        //volver al menu
     }
 }
