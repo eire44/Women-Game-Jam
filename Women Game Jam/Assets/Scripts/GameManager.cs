@@ -43,10 +43,10 @@ private void Awake()
                     offset = interactingObject.transform.position - mousePosition;
                     estadoActual = Estado.dragging;
                 } 
-                else if (hit.collider.gameObject.CompareTag("Accept Button"))
-                {
-                    FindAnyObjectByType<AceptarCandidato>().MostrarFinal("¡Gracias por confiar en el amor!\r\n\nSe casaron a las dos semanas.\r\nSe divorciaron al mes.\r\nLa app te cobró la suscripción premium.\r\n");
-                }
+                //else if (hit.collider.gameObject.CompareTag("Accept Button"))
+                //{
+                //    FindAnyObjectByType<AceptarCandidato>().MostrarFinal("¡Gracias por confiar en el amor!\r\n\nSe casaron a las dos semanas.\r\nSe divorciaron al mes.\r\nLa app te cobró la suscripción premium.\r\n");
+                //}
                 else if (hit.collider.gameObject.CompareTag("Forms Option Button"))
                 {
                     Respuestas respuesta_Indice = hit.collider.gameObject.GetComponent<Respuestas>();

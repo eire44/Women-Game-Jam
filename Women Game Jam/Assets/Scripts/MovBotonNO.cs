@@ -17,6 +17,7 @@ public class MovBotonNO : MonoBehaviour
     float distanciaRecorrida = 0f;
 
     bool posicionable = false;
+    bool fijo = false;
 
     void Start()
     {
@@ -29,7 +30,6 @@ public class MovBotonNO : MonoBehaviour
     {
          if(moving)
         {
-            Debug.Log("4");
             float distanciaFrame = velocidad * Time.deltaTime;
 
             float distanciaRestante = distanciaMovimiento - distanciaRecorrida;
@@ -47,49 +47,43 @@ public class MovBotonNO : MonoBehaviour
                 moving = false;
                 distanciaRecorrida = 0f;
             }
-            //float distanciaFrame = velocidad * Time.deltaTime;
-
-            //Vector3 desplazamiento = posicionDireccion * distanciaFrame;
-
-            //transform.position += desplazamiento;
-            //transform.position = movementClamp.KeepInsideScreen(transform.position);
 
             if (BotonSeparado())
             {
-                Debug.Log("6");
-                //moving = false;
                 posicionable = true;
             }
         }
 
         if (posicionable && BotonPosicionado())
         {
-            Debug.Log("5");
-            //moving = false;
-            posicionable = false;
-
-            FindAnyObjectByType<AceptarCandidato>().MostrarFinal("¡DIJISTE QUE NO!\n\n¿OTRA VEZ QUE NO?\n\nLo bueno es que sabes lo que querés y no aceptás una cita solo por lástima, compromiso o porque una aplicación te obligue.\n\nTu vida amorosa es un desastre, pero al menos es TU desastre.");
+            fijo = true;
         }
     }
 
     private void OnMouseEnter()
     {
-        Debug.Log("1");
-        if (moving)
+        if (moving || fijo)
             return;
-
-        Debug.Log("2");
-        if (posicionable && BotonPosicionado())
-            return;
-        Debug.Log("3");
-
-        posicionable = false;
 
         CambiarDireccion();
 
         distanciaRecorrida = 0f;
         moving = true;
         audioSource_Escape.Play();
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        if (fijo)
+        {
+            posicionable = false;
+
+            FindAnyObjectByType<AceptarCandidato>().MostrarFinal(
+                "¡DIJISTE QUE NO!\n\n¿OTRA VEZ QUE NO?\n\n" +
+                "Lo bueno es que sabes lo que querés y no aceptás una cita solo por lástima, compromiso o porque una aplicación te obligue.\n\n" +
+                "Tu vida amorosa es un desastre, pero al menos es TU desastre."
+            );
+        }
     }
 
     void CambiarDireccion()
