@@ -17,7 +17,8 @@ public class FormsController : MonoBehaviour
     string[] respuestasElegidas = new string[5];
     Sprite[] respuestasElegidas_Imagenes = new Sprite[5];
     public Transform fotoPlaceHolder;
-    public GameObject guru;
+    int[] picturesLayerOrder = new int[4] { 3, 2, 4, 5 };
+    int picturesLayerOrderIndex = 0;
 
     private void Start()
     {
@@ -28,13 +29,13 @@ public class FormsController : MonoBehaviour
     {
         if (opcionElegida == 0)
         {
-            respuestasElegidas[preguntasIndex] = preguntasForms[preguntasIndex].respuesta1;
-            respuestasElegidas_Imagenes[preguntasIndex] = preguntasForms[preguntasIndex].respuesta1_Imagen;
+            respuestasElegidas[preguntasIndex] = preguntasForms[preguntasIndex].respuesta2;
+            respuestasElegidas_Imagenes[preguntasIndex] = preguntasForms[preguntasIndex].respuesta2_Imagen;
         } 
         else
         {
-            respuestasElegidas[preguntasIndex] = preguntasForms[preguntasIndex].respuesta2;
-            respuestasElegidas_Imagenes[preguntasIndex] = preguntasForms[preguntasIndex].respuesta2_Imagen;
+            respuestasElegidas[preguntasIndex] = preguntasForms[preguntasIndex].respuesta1;
+            respuestasElegidas_Imagenes[preguntasIndex] = preguntasForms[preguntasIndex].respuesta1_Imagen;
         }
             
         preguntasIndex++;
@@ -47,7 +48,6 @@ public class FormsController : MonoBehaviour
             candidatoFinal.SetActive(true);
             formulario.SetActive(false);
             fotoPlaceHolder.tag = "Draggable";
-            guru.tag = "Draggable";
             foreach (Sprite s in respuestasElegidas_Imagenes)
             {
                 GameObject imagen = new GameObject();
@@ -60,6 +60,12 @@ public class FormsController : MonoBehaviour
                 SpriteRenderer sr = imagen.AddComponent<SpriteRenderer>();
                 MovementClamp mc = imagen.AddComponent<MovementClamp>();
                 sr.sprite = s;
+                if(picturesLayerOrderIndex < picturesLayerOrder.Length)
+                {
+                    sr.sortingOrder = picturesLayerOrder[picturesLayerOrderIndex];
+                    picturesLayerOrderIndex++;
+                }
+                
             }
             descripcionCandidato.text = "Aquí tienes a tu pareja ideal, lee atentamente su perfil y acéptalo como el amor de tu vida!\n" +
                 $"Ama a los {respuestasElegidas[0]}\n" +

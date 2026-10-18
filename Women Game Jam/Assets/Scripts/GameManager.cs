@@ -44,7 +44,7 @@ private void Awake()
                 } 
                 else if (hit.collider.gameObject.CompareTag("Accept Button"))
                 {
-                    FindAnyObjectByType<AceptarCandidato>().MostrarFinal();
+                    FindAnyObjectByType<AceptarCandidato>().MostrarFinal("salió mal");
                 }
                 else if (hit.collider.gameObject.CompareTag("Forms Option Button"))
                 {

@@ -11,6 +11,11 @@ public class MovBotonNO : MonoBehaviour
     Vector3 posicionDireccion;
     Collider2D botonNO;
     [SerializeField] Collider2D botonPlaceHolder;
+    [SerializeField] float velocidad = 35f;
+    [SerializeField] float distanciaMovimiento = 3f;
+    float distanciaRecorrida = 0f;
+
+    bool posicionable = false;
 
     void Start()
     {
@@ -23,24 +28,69 @@ public class MovBotonNO : MonoBehaviour
     {
          if(moving)
         {
-            transform.position += new Vector3(posicionDireccion.x, posicionDireccion.y) * 35f * Time.deltaTime;
-            
+            //transform.position += new Vector3(posicionDireccion.x, posicionDireccion.y) * 35f * Time.deltaTime;
+
+            //transform.position = movementClamp.KeepInsideScreen(transform.position);
+
+            //if(BotonPosicionado())
+            //{
+            //    moving = false;
+            //}
+
+            float distanciaFrame = velocidad * Time.deltaTime;
+
+            //distanciaFrame = Mathf.Min(distanciaFrame, distanciaMovimiento - distanciaRecorrida);
+
+            Vector3 desplazamiento = posicionDireccion * distanciaFrame;
+
+            transform.position += desplazamiento;
             transform.position = movementClamp.KeepInsideScreen(transform.position);
-            
-            if(BotonPosicionado())
+
+            //distanciaRecorrida += desplazamiento.magnitude;
+
+            //if (distanciaRecorrida >= distanciaMovimiento)
+            //{
+            //    posicionable = true;
+            //    moving = false;
+            //}
+
+            if (BotonSeparado())
             {
+                Debug.Log("Botón separado del placeholder");
                 moving = false;
+                posicionable = true;
             }
 
+            //if (posicionable && BotonPosicionado())
+            //{
+            //    //moving = false;
+            //    FindAnyObjectByType<AceptarCandidato>().MostrarFinal("salió bien, aprendiste a decir que no");
+            //}
+
+        }
+
+        if (posicionable && BotonPosicionado())
+        {
+            //moving = false;
+            posicionable = false;
+
+            FindAnyObjectByType<AceptarCandidato>().MostrarFinal("Salió bien, aprendiste a decir que no");
         }
     }
 
     private void OnMouseEnter()
     {
-        if (moving) return;
+        if (moving)
+            return;
+
+        if (posicionable && BotonPosicionado())
+            return;
+
+        posicionable = false;
 
         CambiarDireccion();
 
+        distanciaRecorrida = 0f;
         moving = true;
     }
 
@@ -53,11 +103,6 @@ public class MovBotonNO : MonoBehaviour
 
         posicionDireccion = new Vector3(direccionX, direccionY, 0);
 
-    }
-
-    private void OnMouseExit()
-    {
-        moving = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -93,5 +138,25 @@ public class MovBotonNO : MonoBehaviour
         float porcentaje = areaSuperpuesta / areaObjeto;
 
         return porcentaje >= 0.7f;
+    }
+
+    bool BotonSeparado()
+    {
+        //if (botonNO == null || botonPlaceHolder == null)
+        //    return false;
+
+        //ColliderDistance2D distancia = botonNO.Distance(botonPlaceHolder);
+
+        //return !distancia.isOverlapped;
+        Bounds a = botonNO.bounds;
+        Bounds b = botonPlaceHolder.bounds;
+
+        bool separadoEnX =
+            a.max.x <= b.min.x || a.min.x >= b.max.x;
+
+        bool separadoEnY =
+            a.max.y <= b.min.y || a.min.y >= b.max.y;
+
+        return separadoEnX || separadoEnY;
     }
 }

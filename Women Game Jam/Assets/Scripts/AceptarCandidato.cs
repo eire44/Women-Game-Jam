@@ -12,8 +12,9 @@ public class AceptarCandidato : MonoBehaviour
     [SerializeField] float fadeDuration = 1f;
     [SerializeField] float esperarMenu = 5f;
 
-    public void MostrarFinal()
+    public void MostrarFinal(string TextoFinal)
     {
+        textoFinal.text = TextoFinal;
         StartCoroutine(Fade(0f, 1f));
     }
 
