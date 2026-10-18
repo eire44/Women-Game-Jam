@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     Camera mainCamera;
     Vector3 offset;
+    //[SerializeField] MovementClamp movementClamp;
 
     enum Estado 
     {
@@ -65,7 +66,18 @@ private void Awake()
 
         if (estadoActual == Estado.dragging)
         {
-            interactingObject.transform.position = GetMouseWorldPosition() + offset;
+            //interactingObject.transform.position = GetMouseWorldPosition() + offset;
+
+            Vector3 mousePosition = GetMouseWorldPosition();
+
+            Vector3 elementNewPosition = mousePosition + offset;
+
+            MovementClamp movementClamp = interactingObject.GetComponent<MovementClamp>();
+
+            if(movementClamp != null)
+            {
+                interactingObject.transform.position = movementClamp.KeepInsideScreen(elementNewPosition);
+            }
         }
     }
 

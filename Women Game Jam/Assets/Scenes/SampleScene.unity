@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 53189677}
   - component: {fileID: 53189679}
   - component: {fileID: 53189680}
+  - component: {fileID: 53189681}
   m_Layer: 0
   m_Name: wp4263486-yayoi-kusama-wallpapers
   m_TagString: Draggable
@@ -285,6 +286,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &53189681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53189676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be384d174b1a11489add58c750422cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementClamp
+  gameManager: {fileID: 97303945}
 --- !u!1 &97303944
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d93aaaaf077db4bb608e64e68fb722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DragAndDrop
+  elementNewPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &97303946
 Transform:
   m_ObjectHideFlags: 0
@@ -1670,6 +1685,7 @@ GameObject:
   - component: {fileID: 1823221141}
   - component: {fileID: 1823221143}
   - component: {fileID: 1823221144}
+  - component: {fileID: 1823221145}
   m_Layer: 0
   m_Name: wp4263495-yayoi-kusama-wallpapers
   m_TagString: Draggable
@@ -1824,6 +1840,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1823221145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823221140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be384d174b1a11489add58c750422cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementClamp
+  gameManager: {fileID: 97303945}
 --- !u!1 &1882209529
 GameObject:
   m_ObjectHideFlags: 0

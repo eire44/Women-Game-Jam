@@ -18,7 +18,7 @@ public class FormsController : MonoBehaviour
 
     private void Start()
     {
-        SiguientePregunta();
+        //SiguientePregunta();
     }
 
     public void Continuar(string opcionElegida)
