@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour
 {
     Camera mainCamera;
     Vector3 offset;
-    //[SerializeField] MovementClamp movementClamp;
+    [SerializeField] AudioSource audioSource_Drag;
 
     enum Estado 
     {
@@ -38,13 +38,14 @@ private void Awake()
             {
                 if(hit.collider.gameObject.CompareTag("Draggable"))
                 {
+                    audioSource_Drag.Play();
                     interactingObject = hit.collider.gameObject;
                     offset = interactingObject.transform.position - mousePosition;
                     estadoActual = Estado.dragging;
                 } 
                 else if (hit.collider.gameObject.CompareTag("Accept Button"))
                 {
-                    FindAnyObjectByType<AceptarCandidato>().MostrarFinal("salió mal");
+                    FindAnyObjectByType<AceptarCandidato>().MostrarFinal("¡Gracias por confiar en el amor!\r\n\nSe casaron a las dos semanas.\r\nSe divorciaron al mes.\r\nLa app te cobró la suscripción premium.\r\n");
                 }
                 else if (hit.collider.gameObject.CompareTag("Forms Option Button"))
                 {
@@ -72,10 +73,12 @@ private void Awake()
 
             Vector3 elementNewPosition = mousePosition + offset;
 
-            MovementClamp movementClamp = interactingObject.GetComponent<MovementClamp>();
+            MovementClamp movementClamp = interactingObject.GetComponent<MovementClamp>(); 
+            Rigidbody2D rb = interactingObject.GetComponent<Rigidbody2D>();
 
-            if(movementClamp != null)
+            if (movementClamp != null)
             {
+                //rb.MovePosition(movementClamp.KeepInsideScreen(elementNewPosition));
                 interactingObject.transform.position = movementClamp.KeepInsideScreen(elementNewPosition);
             }
         }

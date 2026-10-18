@@ -4,10 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class UI_Controller : MonoBehaviour
 {
-    //[SerializeField] AudioSource audioSource_Click;
+    [SerializeField] AudioSource audioSource_Click;
 
     [SerializeField] Transform pInicio;
-    //[SerializeField] Transform pCreditos;
+    [SerializeField] Transform pCreditos;
 
     private void Start()
     {
@@ -18,23 +18,23 @@ public class UI_Controller : MonoBehaviour
     {
         Time.timeScale = 1f;
         pInicio.gameObject.SetActive(false);
-        //audioSource_Click.Play();
+        audioSource_Click.Play();
     }
 
     public void Salir()
     {
-        //audioSource_Click.Play();
-        #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
+        audioSource_Click.Play();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
         #else
                                                     Application.Quit();
         #endif
     }
 
-    public void Creditos()
+    public void IrACreditos()
     {
-        //audioSource_Click.Play();
+        audioSource_Click.Play();
         pInicio.gameObject.SetActive(!pInicio.gameObject.activeInHierarchy);
-        //pCreditos.gameObject.SetActive(!pCreditos.gameObject.activeInHierarchy);
+        pCreditos.gameObject.SetActive(!pCreditos.gameObject.activeInHierarchy);
     }
 }

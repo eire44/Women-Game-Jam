@@ -11,10 +11,12 @@ public class AceptarCandidato : MonoBehaviour
 
     [SerializeField] float fadeDuration = 1f;
     [SerializeField] float esperarMenu = 5f;
+    [SerializeField] AudioSource audioSource_Fade;
 
     public void MostrarFinal(string TextoFinal)
     {
         textoFinal.text = TextoFinal;
+        audioSource_Fade.Play();
         StartCoroutine(Fade(0f, 1f));
     }
 

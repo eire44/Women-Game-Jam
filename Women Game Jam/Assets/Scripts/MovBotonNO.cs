@@ -7,6 +7,7 @@ public class MovBotonNO : MonoBehaviour
     int[,] direcciones;
     bool moving = false;
     MovementClamp movementClamp;
+    [SerializeField] AudioSource audioSource_Escape;
 
     Vector3 posicionDireccion;
     Collider2D botonNO;
@@ -28,63 +29,59 @@ public class MovBotonNO : MonoBehaviour
     {
          if(moving)
         {
-            //transform.position += new Vector3(posicionDireccion.x, posicionDireccion.y) * 35f * Time.deltaTime;
-
-            //transform.position = movementClamp.KeepInsideScreen(transform.position);
-
-            //if(BotonPosicionado())
-            //{
-            //    moving = false;
-            //}
-
+            Debug.Log("4");
             float distanciaFrame = velocidad * Time.deltaTime;
 
-            //distanciaFrame = Mathf.Min(distanciaFrame, distanciaMovimiento - distanciaRecorrida);
+            float distanciaRestante = distanciaMovimiento - distanciaRecorrida;
+            distanciaFrame = Mathf.Min(distanciaFrame, distanciaRestante);
 
-            Vector3 desplazamiento = posicionDireccion * distanciaFrame;
+            Vector3 desplazamiento = posicionDireccion.normalized * distanciaFrame;
 
             transform.position += desplazamiento;
             transform.position = movementClamp.KeepInsideScreen(transform.position);
 
-            //distanciaRecorrida += desplazamiento.magnitude;
+            distanciaRecorrida += desplazamiento.magnitude;
 
-            //if (distanciaRecorrida >= distanciaMovimiento)
-            //{
-            //    posicionable = true;
-            //    moving = false;
-            //}
+            if (distanciaRecorrida >= distanciaMovimiento)
+            {
+                moving = false;
+                distanciaRecorrida = 0f;
+            }
+            //float distanciaFrame = velocidad * Time.deltaTime;
+
+            //Vector3 desplazamiento = posicionDireccion * distanciaFrame;
+
+            //transform.position += desplazamiento;
+            //transform.position = movementClamp.KeepInsideScreen(transform.position);
 
             if (BotonSeparado())
             {
-                Debug.Log("Botón separado del placeholder");
-                moving = false;
+                Debug.Log("6");
+                //moving = false;
                 posicionable = true;
             }
-
-            //if (posicionable && BotonPosicionado())
-            //{
-            //    //moving = false;
-            //    FindAnyObjectByType<AceptarCandidato>().MostrarFinal("salió bien, aprendiste a decir que no");
-            //}
-
         }
 
         if (posicionable && BotonPosicionado())
         {
+            Debug.Log("5");
             //moving = false;
             posicionable = false;
 
-            FindAnyObjectByType<AceptarCandidato>().MostrarFinal("Salió bien, aprendiste a decir que no");
+            FindAnyObjectByType<AceptarCandidato>().MostrarFinal("¡DIJISTE QUE NO!\n\n¿OTRA VEZ QUE NO?\n\nLo bueno es que sabes lo que querés y no aceptás una cita solo por lástima, compromiso o porque una aplicación te obligue.\n\nTu vida amorosa es un desastre, pero al menos es TU desastre.");
         }
     }
 
     private void OnMouseEnter()
     {
+        Debug.Log("1");
         if (moving)
             return;
 
+        Debug.Log("2");
         if (posicionable && BotonPosicionado())
             return;
+        Debug.Log("3");
 
         posicionable = false;
 
@@ -92,6 +89,7 @@ public class MovBotonNO : MonoBehaviour
 
         distanciaRecorrida = 0f;
         moving = true;
+        audioSource_Escape.Play();
     }
 
     void CambiarDireccion()
@@ -142,12 +140,6 @@ public class MovBotonNO : MonoBehaviour
 
     bool BotonSeparado()
     {
-        //if (botonNO == null || botonPlaceHolder == null)
-        //    return false;
-
-        //ColliderDistance2D distancia = botonNO.Distance(botonPlaceHolder);
-
-        //return !distancia.isOverlapped;
         Bounds a = botonNO.bounds;
         Bounds b = botonPlaceHolder.bounds;
 

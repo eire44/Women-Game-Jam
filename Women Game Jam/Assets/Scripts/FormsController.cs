@@ -19,6 +19,7 @@ public class FormsController : MonoBehaviour
     public Transform fotoPlaceHolder;
     int[] picturesLayerOrder = new int[4] { 3, 2, 4, 5 };
     int picturesLayerOrderIndex = 0;
+    [SerializeField] AudioSource audioSource_Click;
 
     private void Start()
     {
@@ -27,6 +28,7 @@ public class FormsController : MonoBehaviour
 
     public void Continuar(int opcionElegida)
     {
+        audioSource_Click.Play();
         if (opcionElegida == 0)
         {
             respuestasElegidas[preguntasIndex] = preguntasForms[preguntasIndex].respuesta2;
@@ -48,6 +50,8 @@ public class FormsController : MonoBehaviour
             candidatoFinal.SetActive(true);
             formulario.SetActive(false);
             fotoPlaceHolder.tag = "Draggable";
+            //fotoPlaceHolder.gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(4));
+            MovementClamp mc = fotoPlaceHolder.gameObject.AddComponent<MovementClamp>();
             foreach (Sprite s in respuestasElegidas_Imagenes)
             {
                 GameObject imagen = new GameObject();
@@ -58,7 +62,6 @@ public class FormsController : MonoBehaviour
                 imagen.transform.localScale = Vector3.one;
 
                 SpriteRenderer sr = imagen.AddComponent<SpriteRenderer>();
-                MovementClamp mc = imagen.AddComponent<MovementClamp>();
                 sr.sprite = s;
                 if(picturesLayerOrderIndex < picturesLayerOrder.Length)
                 {
@@ -67,10 +70,10 @@ public class FormsController : MonoBehaviour
                 }
                 
             }
-            descripcionCandidato.text = "Aquí tienes a tu pareja ideal, lee atentamente su perfil y acéptalo como el amor de tu vida!\n" +
-                $"Ama a los {respuestasElegidas[0]}\n" +
-                $"Prefiere los {respuestasElegidas[1]}\n" +
-                $"Quisiera vacacionar siempre en {respuestasElegidas[2]}\n";
+            descripcionCandidato.text = "¡MATCH PERFECTO! Aquí tienes a tu pareja ideal, lee atentamente su perfil y acéptalo como el amor de tu vida!\n\n" +
+                $"Tu {respuestasElegidas[0]} ideal amará vacacionar contigo en la {respuestasElegidas[1]}.\n" +
+                $"En unos años podrán tener un {respuestasElegidas[2]} juntos y tomar {respuestasElegidas[3]} en las mejores citas de tu vida! \n\n" + 
+                "¡Hacé click en sí para aceptar a tu nuevo amor!";
         }
         
     }
