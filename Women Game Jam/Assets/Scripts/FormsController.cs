@@ -14,25 +14,53 @@ public class FormsController : MonoBehaviour
     public GameObject formulario;
     public GameObject candidatoFinal;
     public TMP_Text descripcionCandidato;
-    string[] respuestasElegidas;
+    string[] respuestasElegidas = new string[5];
+    Sprite[] respuestasElegidas_Imagenes = new Sprite[5];
+    public Transform fotoPlaceHolder;
+    public GameObject guru;
 
     private void Start()
     {
-        //SiguientePregunta();
+        SiguientePregunta();
     }
 
-    public void Continuar(string opcionElegida)
+    public void Continuar(int opcionElegida)
     {
-        respuestasElegidas[preguntasIndex] = opcionElegida;
-        preguntasIndex++;
-        if(preguntasIndex < preguntasForms.Count)
+        if (opcionElegida == 0)
         {
-            //SiguientePregunta();
+            respuestasElegidas[preguntasIndex] = preguntasForms[preguntasIndex].respuesta1;
+            respuestasElegidas_Imagenes[preguntasIndex] = preguntasForms[preguntasIndex].respuesta1_Imagen;
+        } 
+        else
+        {
+            respuestasElegidas[preguntasIndex] = preguntasForms[preguntasIndex].respuesta2;
+            respuestasElegidas_Imagenes[preguntasIndex] = preguntasForms[preguntasIndex].respuesta2_Imagen;
+        }
+            
+        preguntasIndex++;
+        if (preguntasIndex < preguntasForms.Count)
+        {
+            SiguientePregunta();
         }
         else
         {
             candidatoFinal.SetActive(true);
             formulario.SetActive(false);
+            fotoPlaceHolder.tag = "Draggable";
+            guru.tag = "Draggable";
+            foreach (Sprite s in respuestasElegidas_Imagenes)
+            {
+                GameObject imagen = new GameObject();
+
+                imagen.transform.SetParent(fotoPlaceHolder);
+                imagen.transform.localPosition = Vector3.zero;
+                imagen.transform.localRotation = Quaternion.identity;
+                imagen.transform.localScale = Vector3.one;
+
+                SpriteRenderer sr = imagen.AddComponent<SpriteRenderer>();
+                MovementClamp mc = imagen.AddComponent<MovementClamp>();
+                sr.sprite = s;
+            }
             descripcionCandidato.text = "Aquí tienes a tu pareja ideal, lee atentamente su perfil y acéptalo como el amor de tu vida!\n" +
                 $"Ama a los {respuestasElegidas[0]}\n" +
                 $"Prefiere los {respuestasElegidas[1]}\n" +

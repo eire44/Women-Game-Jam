@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AceptarCandidato : MonoBehaviour
 {
@@ -53,6 +54,8 @@ public class AceptarCandidato : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
         
-        //volver al menu
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+
 }

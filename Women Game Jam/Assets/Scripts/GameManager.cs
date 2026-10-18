@@ -48,10 +48,10 @@ private void Awake()
                 }
                 else if (hit.collider.gameObject.CompareTag("Forms Option Button"))
                 {
-                    TMPro.TMP_Text optionButton = hit.collider.gameObject.GetComponent<TMPro.TMP_Text>();
-                    if (optionButton != null)
+                    Respuestas respuesta_Indice = hit.collider.gameObject.GetComponent<Respuestas>();
+                    if (respuesta_Indice != null)
                     {
-                        FindAnyObjectByType<FormsController>().Continuar(optionButton.text);
+                        FindAnyObjectByType<FormsController>().Continuar(respuesta_Indice.indice);
                     }
                     
                 }

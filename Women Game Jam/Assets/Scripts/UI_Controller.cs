@@ -4,26 +4,26 @@ using UnityEngine.SceneManagement;
 
 public class UI_Controller : MonoBehaviour
 {
-    [SerializeField] AudioSource audioSource_Click;
+    //[SerializeField] AudioSource audioSource_Click;
 
     [SerializeField] Transform pInicio;
-    [SerializeField] Transform pCreditos;
-    [SerializeField] TMP_Text gameTitle;
-    [SerializeField] TMP_Text gameTitle_Shadow;
-    //public Transform pOpciones;
+    //[SerializeField] Transform pCreditos;
 
-    [SerializeField] string nombreEscena;
-    public static bool gameCompleted = false;
+    private void Start()
+    {
+        Time.timeScale = 0f;
+    }
 
     public void Jugar()
     {
-        audioSource_Click.Play();
-        SceneManager.LoadScene(nombreEscena);
+        Time.timeScale = 1f;
+        pInicio.gameObject.SetActive(false);
+        //audioSource_Click.Play();
     }
 
     public void Salir()
     {
-        audioSource_Click.Play();
+        //audioSource_Click.Play();
         #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
         #else
@@ -31,25 +31,10 @@ public class UI_Controller : MonoBehaviour
         #endif
     }
 
-    public void irACreditos()
+    public void Creditos()
     {
-        audioSource_Click.Play();
-        pInicio.gameObject.SetActive(false);
-        pCreditos.gameObject.SetActive(true);
-    }
-
-    public void irAOpciones()
-    {
-        audioSource_Click.Play();
-        pInicio.gameObject.SetActive(false);
-        //pOpciones.gameObject.SetActive(true);
-    }
-
-    public void volverAlMenu()
-    {
-        audioSource_Click.Play();
-        pInicio.gameObject.SetActive(true);
-        //pOpciones.gameObject.SetActive(false);
-        pCreditos.gameObject.SetActive(false);
+        //audioSource_Click.Play();
+        pInicio.gameObject.SetActive(!pInicio.gameObject.activeInHierarchy);
+        //pCreditos.gameObject.SetActive(!pCreditos.gameObject.activeInHierarchy);
     }
 }
