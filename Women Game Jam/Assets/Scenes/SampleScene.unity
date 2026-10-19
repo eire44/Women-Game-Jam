@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovBotonNO
   audioSource_Escape: {fileID: 815516480}
+  audioSource_Click: {fileID: 765651786}
   botonPlaceHolder: {fileID: 1613483998}
   velocidad: 35
   distanciaMovimiento: 3
@@ -793,7 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee60115d8c802b4ea3f878acb2d49a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AcceptButton
-  audioSource_Click: {fileID: 0}
+  audioSource_Click: {fileID: 765651786}
 --- !u!1 &229029436
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,7 +3304,7 @@ RectTransform:
   m_GameObject: {fileID: 907921487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0424, y: 1.0424, z: 1.0424}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 241562824}

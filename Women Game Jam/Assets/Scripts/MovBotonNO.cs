@@ -8,6 +8,7 @@ public class MovBotonNO : MonoBehaviour
     bool moving = false;
     MovementClamp movementClamp;
     [SerializeField] AudioSource audioSource_Escape;
+    [SerializeField] AudioSource audioSource_Click;
 
     Vector3 posicionDireccion;
     Collider2D botonNO;
@@ -54,7 +55,7 @@ public class MovBotonNO : MonoBehaviour
             }
         }
 
-        if (posicionable && BotonPosicionado())
+        if (posicionable && BotonPosicionado() && !moving)
         {
             fijo = true;
         }
@@ -74,10 +75,10 @@ public class MovBotonNO : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (fijo)
+        if (fijo && !moving && BotonPosicionado())
         {
             posicionable = false;
-
+            audioSource_Click.Play();
             FindAnyObjectByType<AceptarCandidato>().MostrarFinal(
                 "¡DIJISTE QUE NO!\n\n¿OTRA VEZ QUE NO?\n\n" +
                 "Lo bueno es que sabes lo que querés y no aceptás una cita solo por lástima, compromiso o porque una aplicación te obligue.\n\n" +
